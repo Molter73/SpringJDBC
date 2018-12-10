@@ -3,13 +3,35 @@
  */
 package springTutorial;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  * @author Mauro Moltrasio
  *
  */
+
+@Entity
 public class Customer {
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
 	private String firstName, lastName;
+	/**
+	 * 
+	 */
+	protected Customer() {
+	}
+	/**
+	 * @param firstName
+	 * @param lastName
+	 */
+	public Customer(String firstName, String lastName) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+	}
 	/**
 	 * @param id
 	 * @param firstName
