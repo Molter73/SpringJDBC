@@ -36,7 +36,10 @@ public class Application implements CommandLineRunner{
 	public void run(String... strings) throws Exception{
 		log.info("Creating tables");
 		
-		jdbcTemplate.execute("DROP TABLE customers");
+		jdbcTemplate.execute("DO $$ BEGIN IF EXISTS (SELECT 1" + 
+				"   FROM   information_schema.tables " + 
+				"   WHERE  table_schema = 'public'" + 
+				"   AND    table_name = 'customers') THEN DROP TABLE customers; END IF; END $$;");
 		jdbcTemplate.execute("CREATE TABLE customers("
 				+ "id SERIAL, first_name VARCHAR(255), last_name VARCHAR(255))");
 		
